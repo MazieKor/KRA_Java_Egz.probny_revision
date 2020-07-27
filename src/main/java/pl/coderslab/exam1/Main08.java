@@ -1,0 +1,5 @@
+package pl.coderslab.exam1;
+
+public class Main08 {
+
+}
