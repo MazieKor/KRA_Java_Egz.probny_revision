@@ -50,6 +50,5 @@ public class Main04 {
             tab[i] = i + 1;
         }
         return tab;
-
     }
 }

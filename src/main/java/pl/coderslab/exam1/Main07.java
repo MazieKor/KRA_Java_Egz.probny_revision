@@ -9,7 +9,7 @@ public class Main07 {
     public static void main(String[] args) {
         String str = "-2Wyl3icza4nie su-5my liczb znajdujących sIę w Stringu!-2";
         try {
-            int result = countNumbers(str);  //int result = countNumbers3(str);
+            int result = countNumbers3(str);  //int result = countNumbers3(str);
             if (result < 0)
                 System.out.println("W ciągu nie ma żadnych liczb");
             else
@@ -33,7 +33,7 @@ public class Main07 {
         int counter = 0;
         for (int i = 0; i < tab.length; i++) {
             if (Character.isDigit(tab[i])) {
-                sum += Integer.parseInt(String.valueOf(tab[i]));  //NEW nie mogę parsować charów
+                sum += Integer.parseInt(String.valueOf(tab[i]));
                 counter++;
             }
         }

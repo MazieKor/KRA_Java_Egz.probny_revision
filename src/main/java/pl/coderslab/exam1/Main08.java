@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +21,7 @@ public class Main08 {
 
     public static void create(int max) {
         int maxPointsNumber = max;
-        int passingTreshold = (int) (max * 0.6);  //NEW Mnożenie int i double
+        int passingTreshold = (int) (max * 0.6);
         Scanner scan = new Scanner(System.in);
 
         String input = getNumberOfStudents(scan);
@@ -32,6 +33,15 @@ public class Main08 {
         try {
             Files.write(path, listOfResults);
         } catch (IOException e) {
+            System.out.println("Plik exam nie zostal zapisany. Spróbuj od początku");
+            return;
+        }
+        //2nd Solution - saves in different file and uses Array instead of a list
+        try(FileWriter fileWriter = new FileWriter("exam2.txt")) {
+            for (String row : examData) {
+                fileWriter.append(row).append("\n");
+            }
+        } catch (IOException e){
             System.out.println("Plik exam nie zostal zapisany. Spróbuj od początku");
             return;
         }
@@ -91,7 +101,7 @@ public class Main08 {
                     continue;
                 } else if (createNewFile.equalsIgnoreCase("n")) {
                     System.out.println("Program nie będzie kontynouowany, sprawdź nazwę pliku i włącz jeszcze raz");
-                    return null;
+                    return null; //NEW
                 }
                 break;
             }
@@ -145,5 +155,6 @@ public class Main08 {
         }
         return input;
     }
+
 }
 

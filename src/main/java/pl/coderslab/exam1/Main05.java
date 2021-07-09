@@ -15,11 +15,11 @@ public class Main05 {
 //3 Solutions
 
     public static void main(String[] args) {
-        double volumeOfSphere = Math.round(sphere() * 1000.0) / 1000d;  //NEW: dzielenie przez double'a żeby zadziałao
+        double volumeOfSphere = Math.round(sphere() * 1000.0) / 1000d;
         System.out.println("Objętość kuli to: " + volumeOfSphere);
 
         double volumeOfSphere2 = sphere3();
-//        Locale.setDefault(Locale.ENGLISH);
+//        Locale.setDefault(Locale.ENGLISH);  //Can have different way of displaying of the result
         DecimalFormat format = new DecimalFormat("#,###.0000 m3");
         String formattedVolume = format.format(volumeOfSphere2);
         System.out.println("Objętość kuli to: " + formattedVolume);
@@ -29,13 +29,13 @@ public class Main05 {
     public static double sphere() {
         System.out.println("Podaj promień kuli (wartości dziesiętne podaj z użyciem przecinka): ");
         Scanner scan = new Scanner(System.in);
-        while (!scan.hasNextDouble()) {  //NEW jako doublea mogę podać po prostu 8
+        while (!scan.hasNextDouble()) {
             System.out.println("podałeś nieprawidłową wartość podaj jeszcze raz");
             scan.next();
         }
-        double radius = scan.nextDouble();    //NEW: Mimo że podałem z przecinkiem (nie kropką) mogę przypisać (scanner interpretuje liczbę z przecinkiem jako liczbę więc mogę przypisac doublowi. Liczbę z kropką nie przyjmował w ogóle)
+        double radius = scan.nextDouble();
         double radius_3 = Math.pow(radius, 3);
-        return 4d / 3d * Math.PI * radius_3;    //NEW: Żeby otrzymać double musze wprowadzić 4/3 w doubleu
+        return 4d / 3d * Math.PI * radius_3;
     }
 
 //2nd Solution

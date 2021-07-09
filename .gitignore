@@ -154,4 +154,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # txt files (Exercise 8)
-.txt
+*.txt

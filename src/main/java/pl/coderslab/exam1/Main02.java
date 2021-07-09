@@ -11,6 +11,4 @@ public class Main02 {
     public static String shorten(String str, int length){
         return str.substring(0,length);
     }
-
-
 }
