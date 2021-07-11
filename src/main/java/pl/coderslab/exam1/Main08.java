@@ -3,9 +3,7 @@ package pl.coderslab.exam1;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +13,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main08 {
+//3 Solutions in code
+
     public static void main(String[] args) {
         create(71);
     }
@@ -36,8 +36,9 @@ public class Main08 {
             System.out.println("Plik exam nie zostal zapisany. Spróbuj od początku");
             return;
         }
-        //2nd Solution - saves in different file and uses Array instead of a list
-        try(FileWriter fileWriter = new FileWriter("exam2.txt")) {
+//2nd Solution - saves in different file and uses Array instead of a list
+        String stringTo2ndExamFile = "exam2.txt";
+        try(FileWriter fileWriter = new FileWriter(stringTo2ndExamFile)) {
             for (String row : examData) {
                 fileWriter.append(row).append("\n");
             }
@@ -45,6 +46,7 @@ public class Main08 {
             System.out.println("Plik exam nie zostal zapisany. Spróbuj od początku");
             return;
         }
+//End of Section
 
         List<String> allLines;
         try {
@@ -63,6 +65,70 @@ public class Main08 {
             return;
         }
         System.out.println("Pliki zostały utworzone i zapisane");
+
+
+//2nd Solution - use of File class + Arrays instead of lists
+        File exam2ndFile = new File(stringTo2ndExamFile);
+        int counter = 0;
+        try (Scanner scanner = new Scanner(exam2ndFile)){
+            while(scanner.hasNextLine()) {    //NEW code  - wychodzi tez na to, że jak nextLinem przelecialem do konca pliku to już dalej nie moge, bo scanner nie potrafi się wyzerować
+                counter++;
+                scanner.nextLine();           //NEW bez tego wieczna pętla
+            }
+//            for(int i = 0; scanner.hasNextLine(); i++){
+//                examLine = Arrays.copyOf(examLine, examLine.length+1)
+//                examLine[examLine.length-1] = scanner.nextLine();  //NEW Jeśli mam pojedynczy tablicę to nie musze  = new String (wystarczy sama deklaracja i nie pokazuje błędu przy funkcji split) //NEW jak mam index 1 to już dla długości 1 wyskoczy błąd - nie tworzy mi więc split jakby nowej tablicy
+//            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File can't be found. Check the directory and try one again");
+            return;
+        }
+        String[][] examLine = new String[counter][];
+        try(Scanner scanner = new Scanner(exam2ndFile)) {
+            for (int i = 0; i < examLine.length; i++) {
+                examLine[i] = scanner.nextLine().split(" ");  //NEW splitem tworzę tablicę 2. wymiaru, dla indeksów 1. wymiaru
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File can't be read. Check the directory and the file and try once again");
+            return;
+        }
+        System.out.println("Test - deep to String: " + Arrays.deepToString(examLine));
+        try{                                                                        //this time without "try with resources"
+            PrintWriter printWriter = new PrintWriter("exam_passed2.txt");
+            for (int i = 0; i < examLine.length; i++) {
+                if (Integer.parseInt(examLine[i][1]) > passingTreshold)
+                    printWriter.println(examLine[i][0] + " " + examLine[i][1]);
+            }
+            printWriter.close();
+            System.out.println("Second file with positive exam results was written");
+        } catch (FileNotFoundException e){
+            System.out.println("File can't be written. Check the directory and try once again");
+            return;
+        }
+// End of Section
+
+//3rd Solution - faster version of type 2 Solution (without saving all data in separate Array/List)
+
+        try(Scanner scanner3 = new Scanner(exam2ndFile); FileWriter filewriter = new FileWriter("exam_passed3.txt")){
+            while(scanner3.hasNextLine()){
+                String[] lineInFile = scanner3.nextLine().trim().split(" ");
+                int scoreFile2;
+                try{
+                    scoreFile2 = Integer.parseInt(lineInFile[1]);
+                } catch (NumberFormatException e){
+                    System.out.println("Błąd. Nie występuje liczba");
+                    continue;
+                }
+                if(scoreFile2 > passingTreshold){
+                    filewriter.append(lineInFile[0]).append(" ").append(lineInFile[1]).append("\n");
+                }
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("plik nie został znaleziony");
+        } catch (IOException e){
+            System.out.println("nie udało się zapisać pliku");
+        }
+
     }
 
 

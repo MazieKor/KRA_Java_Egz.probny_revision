@@ -15,7 +15,7 @@ public class Main03 {
         int[] tab = new int[size];
         for (int i = 0; i < tab.length; i++) {
             boolean value = true;
-            while(value){
+            while(value){                                  //Alternatively: while (true) + break;
                 int number = rand.nextInt(interval)+1;
                 if( number % 2 == 0 && number % 3 != 0){
                     value = false;
