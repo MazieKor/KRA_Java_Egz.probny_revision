@@ -9,7 +9,7 @@ public class Main07 {
     public static void main(String[] args) {
         String str = "-2Wyl3icza4nie su-5my liczb znajdujących sIę w Stringu!-2";
         try {
-            int result = countNumbers3(str);  //int result = countNumbers3(str);
+            int result = countNumbers3(str);  //OR: int result = countNumbers(str);
             if (result < 0)
                 System.out.println("W ciągu nie ma żadnych liczb");
             else

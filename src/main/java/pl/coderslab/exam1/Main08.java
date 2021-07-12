@@ -71,14 +71,10 @@ public class Main08 {
         File exam2ndFile = new File(stringTo2ndExamFile);
         int counter = 0;
         try (Scanner scanner = new Scanner(exam2ndFile)){
-            while(scanner.hasNextLine()) {    //NEW code  - wychodzi tez na to, że jak nextLinem przelecialem do konca pliku to już dalej nie moge, bo scanner nie potrafi się wyzerować
+            while(scanner.hasNextLine()) {
                 counter++;
-                scanner.nextLine();           //NEW bez tego wieczna pętla
+                scanner.nextLine();
             }
-//            for(int i = 0; scanner.hasNextLine(); i++){
-//                examLine = Arrays.copyOf(examLine, examLine.length+1)
-//                examLine[examLine.length-1] = scanner.nextLine();  //NEW Jeśli mam pojedynczy tablicę to nie musze  = new String (wystarczy sama deklaracja i nie pokazuje błędu przy funkcji split) //NEW jak mam index 1 to już dla długości 1 wyskoczy błąd - nie tworzy mi więc split jakby nowej tablicy
-//            }
         } catch (FileNotFoundException e) {
             System.out.println("File can't be found. Check the directory and try one again");
             return;
@@ -86,14 +82,14 @@ public class Main08 {
         String[][] examLine = new String[counter][];
         try(Scanner scanner = new Scanner(exam2ndFile)) {
             for (int i = 0; i < examLine.length; i++) {
-                examLine[i] = scanner.nextLine().split(" ");  //NEW splitem tworzę tablicę 2. wymiaru, dla indeksów 1. wymiaru
+                examLine[i] = scanner.nextLine().split(" ");
             }
         } catch (FileNotFoundException e) {
             System.out.println("File can't be read. Check the directory and the file and try once again");
             return;
         }
         System.out.println("Test - deep to String: " + Arrays.deepToString(examLine));
-        try{                                                                        //this time without "try with resources"
+        try{                                                                  //this time without "try with resources" - as an another possibility
             PrintWriter printWriter = new PrintWriter("exam_passed2.txt");
             for (int i = 0; i < examLine.length; i++) {
                 if (Integer.parseInt(examLine[i][1]) > passingTreshold)
@@ -105,7 +101,7 @@ public class Main08 {
             System.out.println("File can't be written. Check the directory and try once again");
             return;
         }
-// End of Section
+// End of Section - 2nd Solution
 
 //3rd Solution - faster version of type 2 Solution (without saving all data in separate Array/List)
 
