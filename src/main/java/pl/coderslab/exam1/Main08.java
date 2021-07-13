@@ -71,7 +71,7 @@ public class Main08 {
         File exam2ndFile = new File(stringTo2ndExamFile);
         int counter = 0;
         try (Scanner scanner = new Scanner(exam2ndFile)){
-            while(scanner.hasNextLine()) {
+            while(scanner.hasNextLine()) {      //Solution without using copyOf
                 counter++;
                 scanner.nextLine();
             }
